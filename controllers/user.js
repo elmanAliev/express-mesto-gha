@@ -1,11 +1,5 @@
 const User = require('../models/user');
 
-const updateParams = {
-  new: true,
-  runValidators: true,
-  upsert: true,
-};
-
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then((user) => res.send({ data: user }))
@@ -39,7 +33,11 @@ module.exports.updateUser = (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    updateParams,
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    },
   )
     .then((user) => ((!user)
       ? res.status(404).send({ message: 'Произошла ошибка' })
@@ -55,7 +53,11 @@ module.exports.updateAvatar = (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    updateParams,
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    },
   )
     .then((user) => ((!user)
       ? res.status(404).send({ message: 'Произошла ошибка' })
