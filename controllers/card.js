@@ -8,23 +8,23 @@ module.exports.getCards = (req, res) => {
 
 module.exports.createCard = (req, res) => {
   const { name, link } = req.body;
-  const owner = req.user._id;
 
-  Card.create({ name, link, owner })
+  Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
     .catch((err) => (err.name === 'ValidationError'
-      ? res.status(400).send({ message: 'Переданны некорректные данные' })
-      : res.status(500).send({ message: 'Ошибка сервера' })));
+      ? res.status(400).send({ message: 'Некорректные данные' })
+      : res.status(500).send({ message: 'Произошла ошибка' })));
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  const id = req.params.cardId;
+  Card.findByIdAndRemove(id)
     .then((card) => ((!card)
-      ? res.status(404).send({ message: 'Карта не найдена' })
+      ? res.status(404).send({ message: 'Такой карточки нет!' })
       : res.send({ data: card })))
     .catch((err) => (err.name === 'CastError'
-      ? res.status(400).send({ message: 'Переданны некорректные данные' })
-      : res.status(500).send({ message: 'Ошибка сервера' })));
+      ? res.status(400).send({ message: 'Некорректные данные' })
+      : res.status(500).send({ message: 'Произошла ошибка' })));
 };
 
 module.exports.likeCard = (req, res) => {
@@ -34,11 +34,11 @@ module.exports.likeCard = (req, res) => {
     { new: true },
   )
     .then((card) => ((!card)
-      ? res.status(404).send({ message: 'Карта не найдена' })
+      ? res.status(404).send({ message: 'Такой карточки нет!' })
       : res.send({ data: card })))
     .catch((err) => (err.name === 'CastError'
-      ? res.status(400).send({ message: 'Переданны некорректные данные' })
-      : res.status(500).send({ message: 'Ошибка сервера' })));
+      ? res.status(400).send({ message: 'Некорректные данные' })
+      : res.status(500).send({ message: 'Произошла ошибка' })));
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -48,9 +48,9 @@ module.exports.dislikeCard = (req, res) => {
     { new: true },
   )
     .then((card) => ((!card)
-      ? res.status(404).send({ message: 'Карта не найдена' })
+      ? res.status(404).send({ message: 'Такой карточки нет!' })
       : res.send({ data: card })))
     .catch((err) => (err.name === 'CastError'
-      ? res.status(400).send({ message: 'Переданны некорректные данные' })
-      : res.status(500).send({ message: 'Ошибка сервера' })));
+      ? res.status(400).send({ message: 'Некорректные данные' })
+      : res.status(500).send({ message: 'Произошла ошибка' })));
 };
