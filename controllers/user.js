@@ -3,7 +3,7 @@ const User = require('../models/user');
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then((user) => res.status(200).send({ data: user }))
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(500).send({ message: `Ошибка сервера: ${err}` }));
 };
 
 module.exports.getUserById = (req, res) => {
@@ -47,7 +47,6 @@ module.exports.updateUser = (req, res) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
     .then((user) => {
@@ -75,7 +74,6 @@ module.exports.updateAvatar = (req, res) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
     .then((user) => {
