@@ -14,6 +14,8 @@ module.exports.createCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         res.status(400).send({ message: 'Некорректные данные' });
+      } else {
+        res.status(500).send({ message: 'Ошибка сервера' });
       }
     });
 };
@@ -21,10 +23,18 @@ module.exports.createCard = (req, res) => {
 module.exports.deleteCard = (req, res) => {
   const id = req.params.cardId;
   Card.findByIdAndRemove(id)
-    .then((card) => res.status(200).send({ data: card }))
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ message: 'Карточка не найдена' });
+      } else {
+        res.status(200).send({ data: card });
+      }
+    })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(400).send({ message: 'Некорректные данные' });
+      } else {
+        res.status(500).send({ message: 'Ошибка сервера' });
       }
     });
 };
@@ -35,10 +45,18 @@ module.exports.likeCard = (req, res) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .then((card) => res.status(200).send({ data: card }))
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ message: 'Карточка не найдена' });
+      } else {
+        res.status(200).send({ data: card });
+      }
+    })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(400).send({ message: 'Некорректные данные' });
+      } else {
+        res.status(500).send({ message: 'Ошибка сервера' });
       }
     });
 };
@@ -49,10 +67,18 @@ module.exports.dislikeCard = (req, res) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .then((card) => res.status(200).send({ data: card }))
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ message: 'Карточка не найдена' });
+      } else {
+        res.status(200).send({ data: card });
+      }
+    })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(400).send({ message: 'Некорректные данные' });
+      } else {
+        res.status(500).send({ message: 'Ошибка сервера' });
       }
     });
 };
