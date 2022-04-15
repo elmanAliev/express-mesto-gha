@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+// импорт роутеров
+const userRouter = require('./routes/user');
+const cardRouter = require('./routes/card');
+
 const { PORT = 3000 } = process.env;
 const app = express();
 
@@ -12,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-// 62570514fe2368a40d3bde95
+// временная авторизация 62570514fe2368a40d3bde95
 app.use((req, res, next) => {
   req.user = {
     _id: '62570514fe2368a40d3bde95',
@@ -21,12 +25,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/users', require('./routes/user'));
-
-app.use('/cards', require('./routes/card'));
+// запуск роутеров
+app.use('/users', userRouter);
+app.use('/cards', cardRouter);
 
 app.use((req, res) => {
-  res.status(404).send({ message: 'Запрашиваемая страница отсутствуе' });
+  res.status(404).send({ message: 'Запрашиваемая страница отсутствует' });
 });
 
 app.listen(PORT, () => {
