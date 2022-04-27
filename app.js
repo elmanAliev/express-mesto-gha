@@ -2,6 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const {
+  createUser,
+  login,
+} = require('./controllers/user');
+const auth = require('./middlewares/auth');
+
 // импорт роутеров
 const userRouter = require('./routes/user');
 const cardRouter = require('./routes/card');
@@ -16,16 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-// временная авторизация 62570514fe2368a40d3bde95
-app.use((req, res, next) => {
-  req.user = {
-    _id: '62570514fe2368a40d3bde95',
-  };
-
-  next();
-});
-
 // запуск роутеров
+// роуты, не требующие авторизации,
+app.post('/signin', login);
+app.post('/signup', createUser);
+
+// авторизация
+app.use(auth);
+
+// роуты, которым авторизация нужна
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 

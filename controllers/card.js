@@ -22,12 +22,16 @@ module.exports.createCard = (req, res) => {
 
 module.exports.deleteCard = (req, res) => {
   const id = req.params.cardId;
-  Card.findByIdAndRemove(id)
+  Card.findById(id)
     .then((card) => {
       if (!card) {
         res.status(404).send({ message: 'Карточка не найдена' });
+      } else if (String(card.owner) === req.user._id) {
+        Card.findByIdAndRemove(id)
+          .then(() => res.status(200).send({ message: 'Карточка удалена' }))
+          .catch(() => res.status(400).send({ message: 'Некорректные данные' }));
       } else {
-        res.status(200).send({ data: card });
+        throw new Error('У вас нет прав на удаление данной карты');
       }
     })
     .catch((err) => {
