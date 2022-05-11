@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, errors, Joi } = require('celebrate');
 const NotFoundErr = require('./errors/NotFoundErr');
@@ -9,6 +10,7 @@ const {
   login,
 } = require('./controllers/user');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // импорт роутеров
 const userRouter = require('./routes/user');
@@ -23,6 +25,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+// подключаем логгер запросов
+app.use(requestLogger);
+
+app.use(cors());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // запуск роутеров
 // роуты, не требующие авторизации,
@@ -53,6 +66,9 @@ app.use('/cards', cardRouter);
 app.use((req, res, next) => {
   next(new NotFoundErr('Запрашиемая страница не найдена'));
 });
+
+// подключаем логгер ошибок
+app.use(errorLogger);
 
 app.use(errors());
 
