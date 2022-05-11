@@ -29,7 +29,14 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 // подключаем логгер запросов
 app.use(requestLogger);
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: [
+    'http://localhost:3000',
+    'https://elman3605.students.nomoredomains.work',
+    'http://elman3605.students.nomoredomains.work',
+  ],
+}));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
