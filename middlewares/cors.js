@@ -1,6 +1,6 @@
 const allowedCors = [
-  'http://localhost:3001',
-  'https://mesto.bestpicture.pro',
+  'http://localhost:3000',
+  'http://elman3605.students.nomoredomains.work',
 ];
 
 module.exports = (req, res, next) => {
