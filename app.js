@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, errors, Joi } = require('celebrate');
 const NotFoundErr = require('./errors/NotFoundErr');
@@ -11,7 +10,7 @@ const {
 } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
+const cors = require('./middlewares/cors');
 // импорт роутеров
 const userRouter = require('./routes/user');
 const cardRouter = require('./routes/card');
@@ -29,14 +28,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 // подключаем логгер запросов
 app.use(requestLogger);
 
-app.use(cors({
-  credentials: true,
-  origin: [
-    'http://localhost:3000',
-    'https://elman3605.students.nomoredomains.work',
-    'http://elman3605.students.nomoredomains.work',
-  ],
-}));
+app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
