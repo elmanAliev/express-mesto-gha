@@ -28,14 +28,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 // подключаем логгер запросов
 app.use(requestLogger);
-app.use(cors({
-  credentials: true,
-  origin: [
-    'http://localhost:3000',
-    'http://elman3605.students.nomoredomains.work',
-  ],
-}));
-// app.use(cors);
+
+app.use(cors);
 // const allowedCors = [
 //   'http://localhost:3000',
 //   'http://elman3605.students.nomoredomains.work',
