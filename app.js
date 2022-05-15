@@ -34,6 +34,7 @@ const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://elman3605.students.nomoredomains.work',
+  'https://elman3605.students.nomoredomains.work',
 ];
 
 app.use((req, res, next) => {
