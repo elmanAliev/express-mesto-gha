@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, errors, Joi } = require('celebrate');
+require('dotenv').config();
 const NotFoundErr = require('./errors/NotFoundErr');
 const handleError = require('./middlewares/handleError');
 const {
@@ -11,7 +11,7 @@ const {
 } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const cors = require('./middlewares/cors');
+
 // импорт роутеров
 const userRouter = require('./routes/user');
 const cardRouter = require('./routes/card');
