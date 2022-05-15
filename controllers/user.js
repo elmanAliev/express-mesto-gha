@@ -8,6 +8,8 @@ const {
   ExistError,
 } = require('../errors');
 
+require('dotenv').config();
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getCurrentUser = (req, res, next) => {
