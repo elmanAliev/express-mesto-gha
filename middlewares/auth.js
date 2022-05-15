@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {
-  BadDataError,
-} = require('../errors');
+const { BadDataError } = require('../errors');
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {

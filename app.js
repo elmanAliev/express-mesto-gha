@@ -32,6 +32,7 @@ app.use(requestLogger);
 // app.use(cors);
 const allowedCors = [
   'http://localhost:3000',
+  'http://localhost:3001',
   'http://elman3605.students.nomoredomains.work',
 ];
 
