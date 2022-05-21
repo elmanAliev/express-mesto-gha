@@ -1,28 +1,27 @@
-[![Tests](https://github.com/elmanAliev/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/elmanAliev/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/elmanAliev/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/elmanAliev/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
-# Проект Mesto фронтенд + бэкенд
+# Создание сервера для проекта Mesto
+Проектная работа, выполненная при обучении на Яндекс.Практикуме по специальности Веб-разработчик.
 
+**Тема: Основы бэкенда для фронтенд-разработчиков**
 
+## Технологии
+Проект реализован на Node с применением Express.
 
-## Настройка бейджей статуса тестов
-Перед началом работы над проектом рекомендуется исправить бейджи, отражающие статус прохождения тестов.
-Для этого замените разметку бейджей на следующий фрагмент, подставив вместо `${имя_пользователя}` и `${имя_репозитория}` соответствующие значения.
-
-```
-[![Tests for sprint 13](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-13-sprint.yml) 
-
-[![Tests for sprint 14](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/${имя_пользователя}/${имя репозитория}/actions/workflows/tests-14-sprint.yml)
-```
-
-
-## Директории
-
-`/routes` — папка с файлами роутера  
-`/controllers` — папка с файлами контроллеров пользователя и карточки   
-`/models` — папка с файлами описания схем пользователя и карточки  
-  
-Остальные директории вспомогательные, создаются при необходимости разработчиком
+Для работы с базами данных используется MongoDB.
 
 ## Запуск проекта
 
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+1. Клонировать репозиторий
+
+    `git@github.com:elmanAliev/express-mesto-gha.git`
+
+2. Установить зависимости
+
+    `cd express-mesto-gha`
+    
+    `npm install`
+
+3. Для запуска использовать команды
+
+    `npm run start` — запускает сервер
+
+    `npm run dev` — запускает сервер с hot-reload
